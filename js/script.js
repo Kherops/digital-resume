@@ -353,6 +353,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Init
-  print('Welcome to the Neo-Futuristic CV Terminal. Type "help" to begin.');
+  print('Welcome to my Neo-Futuristic CV Terminal. Type "help" to begin.');
   showPrompt();
 });
