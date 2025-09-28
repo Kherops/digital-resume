@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Louis Proton</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="assets/warning.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Louis Proton</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="assets/warning.png">
 </head>
 <body>
-    <div class="background">
-        <video src="assets/Vidéo sans titre ‐ Réalisée avec Clipchamp.mp4" autoplay loop muted></video>
-        <!-- Matrix-like rain -->
-        <canvas id="bg-rain" aria-hidden="true"></canvas>
+  <!-- Background video + Matrix rain -->
+  <div class="background">
+    <video src="assets/Vidéo sans titre ‐ Réalisée avec Clipchamp.mp4" autoplay loop muted></video>
+    <canvas id="bg-rain" aria-hidden="true"></canvas>
+  </div>
+
+  <!-- Terminal -->
+  <div class="terminal-container">
+    <div class="terminal">
+      <div class="terminal-header">
+        <span class="terminal-title">Terminal</span>
       </div>
-    <audio id="bg-music" loop preload="auto" hidden>
-        <source src="assets/Hyper-Spoiler-Cyberpunk2077OST.mp3" type="audio/mpeg" />
-      </audio>      
-    <div class="terminal-container">
-        <div class="terminal">
-            <div class="terminal-header">
-                <span class="terminal-title">Terminal</span>
-            </div>
-            <div class="terminal-body">
-                <!-- Terminal content will be dynamically added here -->
-            </div>
-        </div>
+      <div class="terminal-body">
+        <!-- Le contenu du terminal est injecté via script.js -->
+      </div>
     </div>
-    <div class="popup-tutorial" role="dialog" aria-labelledby="tutorial-title" aria-describedby="tutorial-desc">
-        <div class="popup-content">
-          <button class="close-btn" aria-label="Close tutorial">&times;</button>
-          <h2 id="tutorial-title">Welcome to my Interactive Resume !</h2>
-          <p id="tutorial-desc">Use the terminal below to explore my resume using bash-like commands.</p>
-          <ul>
-            <li><code>ls</code> - lists the main sections</li>
-            <li><code>cd skills</code> - opens the Skills section</li>
-            <li><code>cat projects.txt</code> - displays Projects</li>
-            <h2><code>esc to exit this window or close it manually..</code></h2>
-          </ul>
-        </div>
-      </div>
-    <script src="js/script.js"></script>
+  </div>
+
+  <!-- Popup tutoriel -->
+  <div class="popup-tutorial" role="dialog" aria-labelledby="tutorial-title" aria-describedby="tutorial-desc">
+    <div class="popup-content">
+      <button class="close-btn" aria-label="Close tutorial">&times;</button>
+      <h2 id="tutorial-title">Welcome to my Interactive Resume !</h2>
+      <p id="tutorial-desc">Use the terminal below to explore my resume using bash-like commands.</p>
+      <ul>
+        <li><code>ls</code> - lists the main sections</li>
+        <li><code>cd skills</code> - opens the Skills section</li>
+        <li><code>cat projects.txt</code> - displays Projects</li>
+      </ul>
+      <h2><code>Press ESC to exit this window or close it manually..</code></h2>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
 </body>
 </html>

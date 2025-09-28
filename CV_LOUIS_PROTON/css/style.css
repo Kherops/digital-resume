@@ -5,90 +5,110 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-}
-
-.terminal-container {
+  }
+  
+  /* Terminal container centré */
+  .terminal-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-}
-
-.terminal {
+    min-height: 100dvh; /* meilleure compatibilité mobile */
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  
+  .terminal {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     background-color: #1a1a1a;
     border: 2px solid #00ffcc;
     border-radius: 5px;
-    width: 80%;
-    max-width: 800px;
+    width: min(90vw, 800px);
     box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
-}
-
-.terminal-header {
+  }
+  
+  .terminal-header {
     background-color: #00ffcc;
     padding: 10px;
     border-bottom: 2px solid #00ffcc;
     color: #0d0d0d;
-}
-
-.terminal-body {
+  }
+  
+  .terminal-body {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     padding: 20px;
     min-height: 400px;
     color: #00ffcc;
-}
-
-.popup-tutorial {
-    z-index: 2;
-    position: absolute;
-    top: 10%;
-    bottom: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(13, 13, 13, 0.9);
-    padding: 20px;
-    border: 2px solid #00ffcc;
-    border-radius: 5px;
-    box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
-    color: #00ffcc;
-}
-
-.popup-tutorial h2 {
-    margin-top: 0;
-}
-
-.popup-tutorial ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.popup-tutorial li {
-    margin-bottom: 10px;
-}
-
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    color: #00ffcc;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.background{
+    overflow-wrap: anywhere; /* évite les débordements */
+  }
+  
+  /* Background vidéo + canvas */
+  .background {
     position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
     overflow: hidden;
-}
-
-/* Petites optimisations mobiles */
-@media (max-width: 480px){
+  }
+  .background video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.35) saturate(1.2); /* sombre = meilleure lisibilité */
+  }
+  #bg-rain {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  
+  /* Popup tutoriel centrée */
+  .popup-tutorial {
+    position: fixed;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(13, 13, 13, 0.7);
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  .popup-tutorial .popup-content {
+    position: relative;
+    background-color: rgba(13, 13, 13, 0.92);
+    border: 2px solid #00ffcc;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+    color: #00ffcc;
+    width: min(92vw, 640px);
+    max-height: 80vh;
+    overflow: auto;
+    padding: 20px 24px;
+  }
+  .popup-tutorial h2 { margin-top: 0; }
+  .popup-tutorial ul { list-style: none; padding: 0; margin: 0; }
+  .popup-tutorial li { margin-bottom: 10px; }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: #00ffcc;
+    font-size: 22px;
+    cursor: pointer;
+  }
+  
+  /* Mobile devices */
+  @media (max-width: 480px) {
     .terminal-body { padding: 16px; }
     .popup-tutorial .popup-content { padding: 16px 18px; }
   }
