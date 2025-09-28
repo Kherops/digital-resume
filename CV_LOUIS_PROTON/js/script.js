@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'experience.txt': 'Seadoo Proshop – Full-stack Dev\n+ freelance / labs security'
     },
     projects: {
-      'projects.txt': ' louisproton.com '
+      'projects.txt': 'https://louisproton.com'
     },
     education: { 'education.txt': 'Epitech MSc Pro Cybersecurity (ongoing)' },
     contact: { 'contact.txt': 'Email: contact@louisproton.com \nLinkedIn: https://www.linkedin.com/in/louis-proton/ \nGitHub: https://github.com/Kherops' },
@@ -227,7 +227,24 @@ document.addEventListener('DOMContentLoaded', () => {
         return print(`cat: ${args[0]}: No such file`);
       }
       const content = String(parent[leaf]);
-      printBlock(content);
+
+        // Vérifier si c’est une URL
+        if (/^https?:\/\//i.test(content.trim())) {
+          const link = document.createElement("a");
+          link.href = content.trim();
+          link.target = "_blank";
+          link.rel = "noopener";
+          link.textContent = content.trim();
+          link.className = "terminal-link";
+
+          const line = document.createElement("div");
+          line.appendChild(link);
+          terminalBody.insertBefore(line, inputLine);
+          terminalBody.scrollTop = terminalBody.scrollHeight;
+        } else {
+          // Sinon afficher normalement
+          printBlock(content);
+        }
 
       // flag detection
       const m = content.match(/flag\{[^\}]+\}/gi);

@@ -113,3 +113,12 @@ body {
     .popup-tutorial .popup-content { padding: 16px 18px; }
   }
   
+  .terminal-link {
+    color: #00ffcc;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .terminal-link:hover {
+    color: #002ead;
+  }
+  
