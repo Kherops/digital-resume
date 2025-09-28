@@ -226,25 +226,24 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!parent || !(leaf in parent) || isDir(parent[leaf])) {
         return print(`cat: ${args[0]}: No such file`);
       }
-      const content = String(parent[leaf]);
+      const content = String(parent[leaf]).trim();
 
-        // Vérifier si c’est une URL
-        if (/^https?:\/\//i.test(content.trim())) {
-          const link = document.createElement("a");
-          link.href = content.trim();
-          link.target = "_blank";
-          link.rel = "noopener";
-          link.textContent = content.trim();
-          link.className = "terminal-link";
-
-          const line = document.createElement("div");
-          line.appendChild(link);
-          terminalBody.insertBefore(line, inputLine);
-          terminalBody.scrollTop = terminalBody.scrollHeight;
-        } else {
-          // Sinon afficher normalement
-          printBlock(content);
-        }
+      // Si c'est une URL, on affiche un lien cliquable (wrap propre via CSS)
+      if (/^https?:\/\//i.test(content)) {
+        const line = document.createElement('div');
+        const a = document.createElement('a');
+        a.href = content;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.textContent = content;
+        a.className = 'terminal-link';
+        line.appendChild(a);
+        terminalBody.insertBefore(line, inputLine);
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+      } else {
+        // sinon, rendu bloc pre-wrap (ne déborde pas)
+        printBlock(content);
+      }
 
       // flag detection
       const m = content.match(/flag\{[^\}]+\}/gi);

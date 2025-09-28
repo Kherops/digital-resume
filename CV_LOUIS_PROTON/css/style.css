@@ -1,3 +1,4 @@
+/* Base */
 body {
     background-color: #0d0d0d;
     color: #00ffcc;
@@ -5,6 +6,7 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    font-size: clamp(13px, 2.2vw, 16px); /* typo fluide pour mobile */
   }
   
   /* Terminal container centré */
@@ -12,19 +14,21 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100dvh; /* meilleure compatibilité mobile */
+    min-height: 100dvh;
     padding: 16px;
     box-sizing: border-box;
   }
   
+  /* Terminal */
   .terminal {
     position: relative;
     z-index: 2;
     background-color: #1a1a1a;
     border: 2px solid #00ffcc;
     border-radius: 5px;
-    width: min(90vw, 800px);
+    width: min(96vw, 800px);          /* un peu plus flexible en mobile */
     box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+    overflow: hidden;                  /* évite tout scroll horizontal résiduel */
   }
   
   .terminal-header {
@@ -34,16 +38,57 @@ body {
     color: #0d0d0d;
   }
   
+  /* Corps du terminal : WRAP AGRESSIF */
   .terminal-body {
     position: relative;
     z-index: 2;
     padding: 20px;
     min-height: 400px;
     color: #00ffcc;
-    overflow-wrap: anywhere; /* évite les débordements */
+  
+    /* anti-débordement */
+    overflow-wrap: anywhere;  /* casse même les tokens très longs */
+    word-break: break-word;
   }
   
-  /* Background vidéo + canvas */
+  /* Lignes de sortie (texte simple) : wrap normal */
+  .output-line {
+    white-space: normal;
+    margin: 2px 0;
+  }
+  
+  /* Blocs (équivalent 'pre') : conserver sauts de ligne, mais wrap quand même */
+  .output-block {
+    white-space: pre-wrap;   /* <= clé pour empêcher le débordement des <pre> */
+    word-break: break-word;
+    margin: 6px 0;
+  }
+  
+  /* Ligne d'entrée : se replie sur mobile si besoin */
+  .input-line {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    flex-wrap: wrap;         /* <= permet retour à la ligne */
+  }
+  .input-line .prompt { white-space: nowrap; }
+  .input-line .command-input {
+    flex: 1 1 220px;
+    min-width: 120px;
+    max-width: 100%;
+  }
+  
+  /* Liens dans le terminal */
+  .terminal-link,
+  .terminal-body a {
+    color: #00ffcc;
+    text-decoration: underline;
+    word-break: break-all;   /* casse les URLs interminables */
+  }
+  .terminal-link:hover,
+  .terminal-body a:hover { color: #001aff; }
+  
+  /* Background couche vidéo + canvas */
   .background {
     position: fixed;
     inset: 0;
@@ -57,7 +102,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.35) saturate(1.2); /* sombre = meilleure lisibilité */
+    filter: brightness(0.35) saturate(1.2);
   }
   #bg-rain {
     position: absolute;
@@ -68,7 +113,7 @@ body {
     pointer-events: none;
   }
   
-  /* Popup tutoriel centrée */
+  /* Popup centrée */
   .popup-tutorial {
     position: fixed;
     inset: 0;
@@ -107,18 +152,9 @@ body {
     cursor: pointer;
   }
   
-  /* Mobile devices */
+  /* Mobile optimisé */
   @media (max-width: 480px) {
     .terminal-body { padding: 16px; }
     .popup-tutorial .popup-content { padding: 16px 18px; }
-  }
-  
-  .terminal-link {
-    color: #00ffcc;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-  .terminal-link:hover {
-    color: #002ead;
   }
   
